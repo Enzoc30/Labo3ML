@@ -132,35 +132,6 @@ y_kmeans_pca = kmeans.fit_predict(X_pca) #PCA
 y_kmeans_tsne = kmeans.fit_predict(X_tsne) #t-SNE
 y_kmeans_pcaE = kmeans.fit_predict(X_pcaE) #PCA + UMAP
 
-cluster_labels = [str(i) for i in range(1, num_clusters + 1)]
-plt.figure(12,12)
-
-plt.subplot(2, 2, 1)
-plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y_kmeans_pca)
-for i, label in enumerate(cluster_labels):
-    plt.text(X_pca[y_kmeans_pca == i, 0].mean(), X_pca[y_kmeans_pca == i, 1].mean(), label,
-             horizontalalignment='center', verticalalignment='center', fontsize=12, weight='bold')
-plt.title('K-Means PCA')
-
-plt.subplot(2, 2, 2)
-plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=y_kmeans_tsne)
-plt.title('K-Means t-SNE')
-for i, label in enumerate(cluster_labels):
-    plt.text(X_tsne[y_kmeans_tsne == i, 0].mean(), X_tsne[y_kmeans_tsne == i, 1].mean(), label,
-             horizontalalignment='center', verticalalignment='center', fontsize=12, weight='bold')
-
-plt.subplot(2, 2, 3)
-plt.scatter(X_pcaE[:, 0], X_pcaE[:, 1], c=y_kmeans_pcaE)
-for i, label in enumerate(cluster_labels):
-    plt.text(X_pcaE[y_kmeans_pcaE == i, 0].mean(), X_pcaE[y_kmeans_pcaE == i, 1].mean(), label,
-             horizontalalignment='center', verticalalignment='center', fontsize=12, weight='bold')
-plt.title('K-Means PCA + Embedding')
-
-#FALTA
-
-plt.tight_layout()
-plt.show()
-plt.savefig('p6.png')
 
 #PREGUNTA 7: Meanshift
 
@@ -172,32 +143,3 @@ y_ms_tsne = ms_tsne.fit_predict(X_tsne) #t-SNE
 
 ms_pcaE = MeanShift(bandwidth=0.95, bin_seeding=True)
 y_ms_pcaE = ms_pcaE.fit_predict(X_pcaE) #PCA + UMAP
-
-plt.figure(12,12)
-
-plt.subplot(2, 2, 1)  # Use subplot position 2 for MeanShift clustering
-plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y_ms_pca)
-for i, label in enumerate(cluster_labels):
-    plt.text(X_pca[y_ms_pca == i, 0].mean(), X_pca[y_ms_pca == i, 1].mean(), label,
-             horizontalalignment='center', verticalalignment='center', fontsize=12, weight='bold')
-plt.title('MeanShift PCA')
-
-plt.subplot(2, 2, 2)
-plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=y_ms_tsne)
-for i, label in enumerate(cluster_labels):
-    plt.text(X_tsne[y_ms_tsne == i, 0].mean(), X_tsne[y_ms_tsne == i, 1].mean(), label,
-             horizontalalignment='center', verticalalignment='center', fontsize=12, weight='bold')
-plt.title('MeanShift t-SNE')
-
-plt.subplot(2, 2, 3)  # Use subplot position 2 for MeanShift clustering
-plt.scatter(X_pcaE[:, 0], X_pcaE[:, 1], c=y_ms_pcaE)
-for i, label in enumerate(cluster_labels):
-    plt.text(X_pcaE[y_ms_pcaE == i, 0].mean(), X_pcaE[y_ms_pcaE == i, 1].mean(), label,
-             horizontalalignment='center', verticalalignment='center', fontsize=12, weight='bold')
-plt.title('MeanShift PCA + Embedding (UMAP)')
-
-# FALTA
-
-plt.tight_layout()
-plt.show()
-plt.savefig('p7.png')
